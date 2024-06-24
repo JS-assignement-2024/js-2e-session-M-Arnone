@@ -14,6 +14,8 @@ En outre, l'application doit inclure une page présentant un tableau des 10 meil
 ## Mocks
 Ci-dessous des mocks représentant la demande. Le visuel est laissé à votre appréciation et ne doit pas chercher à suivre les mocks.
 
+![Mock 1](imgage1.png)
+
 ## Points clés
 - Conception et développement d'une base de données pour stocker les noms et les scores des enfants.
 - Création d'une API pour l'interaction avec la base de données.
