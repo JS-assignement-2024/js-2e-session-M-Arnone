@@ -1,38 +1,47 @@
 <?php
-
-// Introduire une temporisation de 5 secondes
-$sleep = $_GET['sleep'] ?? 0;
-sleep($sleep);
-
-// Indiquer au navigateur que la réponse est de type JSON
 header('Content-Type: application/json');
+$path = $_SERVER['DOCUMENT_ROOT'].'/code/';
+$file =  'controllers/user.php';
+require_once $path.$file;
+// Indiquer au navigateur que la réponse est de type JSON
+$method = $_SERVER['REQUEST_METHOD'];
+$user = new UserController();
+if ($method == 'POST') {
+    $data = json_decode(file_get_contents('php://input'),true);
+    if(isset($data['name']) && !empty($data['name'])) {
+    $name = $data['name'];
+    $score = isset($data['score']) ? $data['score'] : 0;
+    $user->createUser($name,$score);
 
-if (isset($_GET['error'])) {
-    
-    // Optionnel : définir le code de réponse HTTP approprié pour une erreur
-    // Par exemple, 400 pour une requête incorrecte
-    http_response_code(400);
-    
-    // Préparer un message d'erreur
     $response = [
-        'status' => "error",
-        'message' => "Une erreur a été demandée après $sleep secondes."
+        'status' => 'success',
+        'message' => 'Utilisateur inscrit'
     ];
-
-    // Envoyer la réponse JSON
     echo json_encode($response);
+    exit;
+    }
+    else{
+        // Optionnel : définir le code de réponse HTTP approprié pour une erreur
+        // Par exemple, 400 pour une requête incorrecte
+        http_response_code(400);
     
-    // Arrêter l'exécution du script pour ne pas poursuivre avec d'autres traitements
+        // Préparer un message d'erreur
+        $response = [
+            'status' => 'error',
+            'message' => 'Erreur concernant le nom d\'utilisateur'
+        ];
+        echo json_encode($response);
+        exit;
+    }
+}
+else{
+    http_response_code(405);
+    $response = [
+        'status' => 'error',
+        'message' => 'Invalid request method'
+    ];
+    echo json_encode($response);
     exit;
 }
-
-// Créer un tableau associatif pour la réponse JSON
-$response = [
-    'status' => "success",
-    'message' => "Voici une réponse avec une temporisation de $sleep secondes."
-];
-
 // Convertir le tableau associatif en JSON et l'envoyer
-echo json_encode($response);
-
 ?>

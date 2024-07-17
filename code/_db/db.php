@@ -1,13 +1,12 @@
 <?php
-require_once '../_config/config.php';
+$path = $_SERVER['DOCUMENT_ROOT'].'/code/';
+$file =  '_config/config.php';
+require_once $path.$file;
 // Connexion à la base de données
-$db = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-
-// Vérification de la connexion
-if ($db->connect_error) {
-    die("Connexion échouée : " . $db->connect_error);
-}
-else{
-    echo 'Connecté';
-    $db->set_charset('utf8');
+function getConnexion(){
+    $db = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+    // Vérification de la connexion
+    if ($db->connect_error) 
+            die("Connexion échouée : " . $db->connect_error);
+    return $db;
 }
