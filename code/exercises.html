@@ -6,13 +6,27 @@
     <title>Document</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap"/>
+
+    <script src="js/exercises.js" defer></script>
 </head>
 <body>
     <h1>Calculs simples</h1>
-    <div id="exercise-container"></div>
-    <p id="message"></p>
     <p id="user-welcome"></p>
-    <button id="submit-answers">Envoie tes réponses !</button>
-    <script src="js/exercises.js"></script>
+
+     <div id="exercise-container">
+        <h2>Choisis les opérations et le nombre d'exercices</h2>
+        <button id="btn-addition" onclick="selectOperation('addition')">+</button>
+        <button id="btn-subtraction" onclick="selectOperation('subtraction')">-</button>
+        <button id="btn-multiplication" onclick="selectOperation('multiplication')">*</button>
+        <button id="btn-division" onclick="selectOperation('division')">%</button>
+        <input type="number" id="num-exercises" placeholder="Nombre d'exercices">
+        <button onclick="generateExercises()">Générer les exercices</button>
+    </div>
+
+    <div id="drag-drop-container">
+        <!-- Generated exercises and answers will appear here -->
+    </div>
+
+    <button id="submit-button" style="display: none;" onclick="submitAnswers()">Valide tes réponses</button>
 </body>
 </html>
