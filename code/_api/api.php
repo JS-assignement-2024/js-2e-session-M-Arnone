@@ -16,14 +16,15 @@ if ($method == 'POST') {
             $response = [
                 'status' => 'success',
                 'message' => 'Utilisateur déjà inscrit',
-                'user' => $existingUser
+                'user' => $name
             ];
         } else {
             $score = isset($data['score']) ? $data['score'] : 0;
             $user->createUser($name, $score);
             $response = [
                 'status' => 'success',
-                'message' => 'Utilisateur inscrit'
+                'message' => 'Utilisateur inscrit',
+                'user' => $name
             ];
         }
         echo json_encode($response);

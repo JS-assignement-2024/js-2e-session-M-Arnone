@@ -1,23 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-
-    <form id="user" method="POST">
-        <label for="name">Ton prénom : </label>
-        <input type ="text" id="name" name="name" required/> 
-        <button type="submit">Start</button>
-    </form>
-
-    <p id="message"></p>
-
-<script>
-     var form = document.getElementById("user");
-     var nameInput = document.getElementById("name");
+var form = document.getElementById("user");
+    var nameInput = document.getElementById("name");
     var messageParagraph = document.getElementById("message");
 
     form.onsubmit = function(e) {
@@ -44,9 +26,13 @@
             return response.json();
         })
         .then(data => {
-            // Affichage de la réponse du serveur
-            console.log(data); // Vérifiez la réponse du serveur
-            messageParagraph.textContent = data.message;
+            if (data.status === 'success') {
+                    console.log(data);
+                    localStorage.setItem('userName', data.user); 
+                    window.location.href = './exercises.html';
+                } else {
+                    document.getElementById('message').textContent = data.message;
+                }
         })
         .catch(error => {
             console.error('Erreur:', error);
@@ -54,7 +40,3 @@
         });
     }
 };
-
-</script>
-</body>
-</html>
