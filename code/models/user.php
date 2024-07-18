@@ -21,6 +21,16 @@ class User{
         $result = $this->db->query("SELECT * FROM users ORDER BY score DESC LIMIT 10");
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+
+    public function getUserByName($name) {
+        $stmt = $this->db->prepare("SELECT * FROM users WHERE name = ?");
+        $stmt->bind_param("s", $name);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $user = $result->fetch_assoc();
+        $stmt->close();
+        return $user;
+    }
 }
 
 ?>

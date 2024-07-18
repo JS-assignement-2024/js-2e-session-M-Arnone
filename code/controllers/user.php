@@ -18,5 +18,8 @@ class UserController{
     public function getAllUsers(){
         return $this->user->getAll();
     }
+    public function getUserByName($name){
+        return $this->user->getUserByName($name);
+    }
 
 }
