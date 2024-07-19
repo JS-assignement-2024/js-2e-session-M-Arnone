@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const userName = localStorage.getItem('userName');
+    const userName = localStorage.getItem('user');
     const userWelcome = document.getElementById('user-welcome');
     userWelcome.textContent = `Bienvenue, ${userName}!`;
 });
@@ -150,6 +150,7 @@ function drop(ev) {
 }
 
 function submitAnswers() {
+    console.log("JavaScript file reloaded");
     let correct = 0;
     exercises.forEach((ex, index) => {
         const num1Div = document.getElementById(`num1-${index}`);
@@ -177,17 +178,32 @@ function submitAnswers() {
     });
     alert(`Tu as eu ${correct} bonnes réponses!`);
 
-
-    fetch('_api/api.php', {
+    fetch('http://localhost/code/_api/api.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({name: localStorage.getItem('userName'), score:correct})
+        body: JSON.stringify({
+            name: localStorage.getItem('user'),
+            score: correct,
+            type: 'savescore',
+        })
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Erreur HTTP, statut ' + response.status);
+        }
+        return response.json();
+    })
     .then(data => {
-        console.log(data.message);
+        if (data.status === 'success') {
+                console.log(data);
+                console.log('gut');
+            } else {
+                document.getElementById('message').textContent = data.message;
+            }
     })
-    .catch(error => console.error('Error:', error));
+    .catch(error => {
+        console.error('Erreur:', error);
+    });
 }
