@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded",function(){
             .then(data => {
                 if (data.status === 'success') {
                         localStorage.setItem('user', data.user); 
-                        window.location.href = 'views/exercises.html';
+                        window.location.href = 'views/exercises.php';
                     } else {
                         document.getElementById('message').textContent = data.message;
                     }

@@ -67,6 +67,9 @@ function displayExercises() {
     const answerContainer = document.createElement('div');
     answerContainer.id = 'answer-container';
 
+    let answers = []; // Tableau pour stocker les réponses avant de les mélanger
+    let answerMap = {}; // Pour associer les réponses aux zones de dépôt
+
     exercises.forEach((ex, index) => {
         const exerciseDiv = document.createElement('div');
         exerciseDiv.classList.add('exercise');
@@ -83,6 +86,7 @@ function displayExercises() {
                 dropZone.ondrop = drop;
                 dropZone.ondragover = allowDrop;
                 exerciseDiv.appendChild(dropZone);
+                answerMap[`${part}-${index}`] = ex[part]; // Associe la zone de dépôt à la réponse
             } else {
                 const staticPart = document.createElement('div');
                 staticPart.classList.add('static-part');
@@ -104,6 +108,7 @@ function displayExercises() {
         const answerDiv = document.createElement('div');
         answerDiv.classList.add('static-part');
         answerDiv.innerText = ex.answer;
+        answerDiv.id = `answer-${index}`;
         exerciseDiv.appendChild(answerDiv);
 
         exerciseContainer.appendChild(exerciseDiv);
@@ -115,12 +120,28 @@ function displayExercises() {
             answerDiv.draggable = true;
             answerDiv.ondragstart = drag;
             answerDiv.innerText = ex[dropPart];
-            answerContainer.appendChild(answerDiv);
+            answers.push(answerDiv); // Ajouter au tableau des réponses
         }
+    });
+
+    // Mélanger les réponses
+    answers = shuffleArray(answers);
+
+    // Ajouter les réponses mélangées au conteneur
+    answers.forEach(answerDiv => {
+        answerContainer.appendChild(answerDiv);
     });
 
     container.appendChild(exerciseContainer);
     container.appendChild(answerContainer);
+}
+
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
 }
 
 function getOperatorSymbol(operation) {
@@ -153,30 +174,26 @@ function drop(ev) {
 function submitAnswers() {
     console.log("JavaScript file reloaded");
     let correct = 0;
+
     exercises.forEach((ex, index) => {
         const num1Div = document.getElementById(`num1-${index}`);
         const num2Div = document.getElementById(`num2-${index}`);
         const answerDiv = document.getElementById(`answer-${index}`);
-        
-        const num1Answer = num1Div ? (num1Div.children[0] ? parseInt(num1Div.children[0].innerText) : null) : ex.num1;
-        const num2Answer = num2Div ? (num2Div.children[0] ? parseInt(num2Div.children[0].innerText) : null) : ex.num2;
-        const resultAnswer = answerDiv ? (answerDiv.children[0] ? parseInt(answerDiv.children[0].innerText) : null) : ex.answer;
+
+        const num1Answer = num1Div ? parseInt(num1Div.innerText) : ex.num1;
+        const num2Answer = num2Div ? parseInt(num2Div.innerText) : ex.num2;
+        const resultAnswer = answerDiv ? parseInt(answerDiv.innerText) : ex.answer;
 
         const isNum1Correct = num1Answer === ex.num1;
         const isNum2Correct = num2Answer === ex.num2;
         const isAnswerCorrect = resultAnswer === ex.answer;
 
-        if (isNum1Correct && num1Div) num1Div.style.backgroundColor = 'green';
-        else if (num1Div) num1Div.style.backgroundColor = 'red';
-
-        if (isNum2Correct && num2Div) num2Div.style.backgroundColor = 'green';
-        else if (num2Div) num2Div.style.backgroundColor = 'red';
-
-        if (isAnswerCorrect && answerDiv) answerDiv.style.backgroundColor = 'green';
-        else if (answerDiv) answerDiv.style.backgroundColor = 'red';
+        if (num1Div) num1Div.style.backgroundColor = isNum1Correct ? 'green' : 'red';
+        if (num2Div) num2Div.style.backgroundColor = isNum2Correct ? 'green' : 'red';
 
         if (isNum1Correct && isNum2Correct && isAnswerCorrect) correct++;
     });
+
     alert(`Tu as eu ${correct} bonnes réponses!`);
 
     fetch('http://localhost/code/_api/api.php', {
@@ -199,11 +216,11 @@ function submitAnswers() {
     })
     .then(data => {
         if (data.status === 'success') {
-                console.log(data);
-                console.log('gut');
-            } else {
-                document.getElementById('message').textContent = data.message;
-            }
+            console.log(data);
+            console.log('gut');
+        } else {
+            document.getElementById('message').textContent = data.message;
+        }
     })
     .catch(error => {
         console.error('Erreur:', error);
