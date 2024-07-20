@@ -52,7 +52,8 @@ if ($method == 'POST') {
                 if (isset($data['name']) && isset($data['score'])) {
                     $name = $data['name'];
                     $score = $data['score'];
-                    $userController->addScore($name,$score);
+                    $numquest = $data['numquest'];
+                    $userController->addScore($name,$score,$numquest);
                     $response = [
                         'status' => 'success',
                         'message' => 'Score sauvegardé',
@@ -85,11 +86,19 @@ if ($method == 'POST') {
     }
 }
 else{
-    http_response_code(405);
-    $response = [
-        'status' => 'Erreur',
-        'message' => 'Méthode invalide !=POST'
-    ];
+    if (isset($_GET['action']) && $_GET['action'] === 'getTopScores') {
+        $scores = $user->getTopScores();
+        echo json_encode($scores);
+        exit;
+    }
+    else{
+        http_response_code(405);
+        $response = [
+            'status' => 'Erreur',
+            'message' => 'Méthode invalide !=POST'
+        ];
+    }
+
 }
 echo json_encode($response);
 exit;

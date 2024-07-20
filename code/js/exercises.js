@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const userName = localStorage.getItem('user');
     const userWelcome = document.getElementById('user-welcome');
+    const numberOfExercises = document.getElementById('num-exercises');
     userWelcome.textContent = `Bienvenue, ${userName}!`;
 });
 
@@ -186,6 +187,7 @@ function submitAnswers() {
         body: JSON.stringify({
             name: localStorage.getItem('user'),
             score: correct,
+            numquest: numberOfExercises,
             type: 'savescore',
         })
     })

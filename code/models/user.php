@@ -17,27 +17,39 @@ class User{
         $stmt->close();
     }
 
-    public function addScore($userId, $score) {
-        $stmt = $this->db->prepare("INSERT INTO scores (user_id, score) VALUES (?, ?)");
-        $stmt->bind_param("ii", $userId, $score);
+    public function addScore($userId, $score,$numquest) {
+        $stmt = $this->db->prepare("INSERT INTO scores (user_id, score,num_exercises) VALUES (?,?,?)");
+        $stmt->bind_param("iii", $userId, $score,$numquest);
         $stmt->execute();
         $stmt->close();
     }
 
+  
+
     public function getTopScores($limit = 10) {
+        // Préparer la requête SQL pour calculer la moyenne des scores normalisée sur 20
         $stmt = $this->db->prepare("
-            SELECT users.name, MAX(scores.score) as score
+            SELECT users.name,
+                   -- Calculer la moyenne des scores pour chaque utilisateur
+                   -- Normaliser sur une échelle de 20
+                   AVG(scores.score / scores.num_exercises) * ? AS normalized_score
             FROM scores
             JOIN users ON scores.user_id = users.id
             GROUP BY users.id
-            ORDER BY score DESC
+            ORDER BY normalized_score DESC
             LIMIT ?
         ");
-        $stmt->bind_param("i", $limit);
+        
+        // La valeur 20 pour la normalisation
+        $normalizationFactor = 20;
+        $stmt->bind_param("ii", $normalizationFactor, $limit);
         $stmt->execute();
+        
+        // Obtenir les résultats
         $result = $stmt->get_result();
         $scores = $result->fetch_all(MYSQLI_ASSOC);
         $stmt->close();
+        
         return $scores;
     }
 

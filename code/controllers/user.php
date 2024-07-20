@@ -15,7 +15,8 @@ class UserController{
         $user = $this->user->getUserByName($name);
         if ($user) {
             $userId = $user['id'];
-            $this->user->addScore($userId, $score);
+            $num = 0;
+            $this->user->addScore($userId, $score,$num);
         } else {
             error_log('Utilisateur non trouvé après création');
         }
@@ -23,11 +24,11 @@ class UserController{
     public function getUserByName($name) {
         return $this->user->getUserByName($name);
     }
-    public function addScore($name,$score){
+    public function addScore($name,$score,$numquest){
          $user = $this->user->getUserByName($name);
         if ($user) {
             $userId = $user['id'];
-            $this->user->addScore($userId, $score);
+            $this->user->addScore($userId, $score,$numquest);
         } else {
             error_log('Utilisateur non trouvé pour l\'ajout du score');
         }

@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap"/>
-
-    <script src="js/exercises.js" defer></script>
+    <script src="../js/exercises.js" defer></script>
 </head>
 <body>
+    <?php include '../_includes/navbar.php'; ?>
+  
     <h1>Calculs simples</h1>
     <p id="user-welcome"></p>
 
