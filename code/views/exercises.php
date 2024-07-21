@@ -14,11 +14,11 @@
     <p id="user-welcome"></p>
 
      <div id="question-container">
-        <h2>Choisis les opérations et le nombre d'exercices</h2>
-        <button id="btn-addition" onclick="selectOperation('addition')">+</button>
-        <button id="btn-subtraction" onclick="selectOperation('subtraction')">-</button>
-        <button id="btn-multiplication" onclick="selectOperation('multiplication')">*</button>
-        <button id="btn-division" onclick="selectOperation('division')">%</button>
+        <h2 class="title-ex">Choisis les opérations et le nombre d'exercices</h2>
+        <button id="btn-addition" onclick="selectOperation('addition')">➕</button>
+        <button id="btn-subtraction" onclick="selectOperation('subtraction')">➖</button>
+        <button id="btn-multiplication" onclick="selectOperation('multiplication')">✖️</button>
+        <button id="btn-division" onclick="selectOperation('division')">➗</button>
         <input type="number" id="num-exercises" placeholder="Nombre d'exercices">
         <button onclick="generateExercises()">Générer les exercices</button>
     </div>

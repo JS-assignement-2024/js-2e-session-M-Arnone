@@ -5,6 +5,39 @@ body {
     padding: 0;
     box-sizing: border-box;
 }
+/* Styles de base pour la navbar */
+.w3-top {
+    background-color: #FFD700; 
+    padding: 20px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.title-ex{
+    text-align: center;
+}
+.w3-bar-item {
+    font-family: 'Comic Sans MS', cursive; 
+    font-size: 24px; 
+    color: #FFFFFF; 
+    padding: 10px 20px;
+    text-align: center;
+    display: inline-block;
+    transition: background-color 0.3s, transform 0.3s;
+    margin: 0 5px;
+    border-radius: 10px; 
+}
+
+.w3-bar-item:hover {
+    background-color: #FFA500;
+    transform: scale(1.1); 
+}
+
+/* Ajout d'icônes aux boutons */
+.w3-bar-item::before {
+    display: inline-block;
+    margin-right: 8px;
+    font-size: 24px;
+    vertical-align: middle;
+}
 
 /* --- Login page --- */
 .login-page {
@@ -70,7 +103,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-image: url('../images/math.jpg');
+    background-image: url('../images/number.jpg');
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -138,10 +171,19 @@ body {
     justify-content: center;
 }
 
-#submit-button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    font-size: 16px;
+input[type="number"] {
+    background-color: #FFD700; 
+    font-family: 'Comic Sans MS', cursive; 
+    color: #333; 
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 10px; 
+    font-size: 24px; 
+    width: 50%; 
+    max-width: 300px; 
+    box-sizing: border-box; 
+    text-align: center; 
+    transition: background-color 0.3s ease, transform 0.3s ease; 
 }
 
 button.selected {
@@ -150,19 +192,20 @@ button.selected {
 }
 
 button {
-    background-color: #007bff;
-    font-family: 'Indie Flower', cursive;
+    background-color: #FFD700; 
+    font-family: 'Comic Sans MS', cursive; 
     color: white;
     border: none;
     padding: 0.8rem 1.5rem;
-    border-radius: 4px;
-    font-size: 1rem;
+    border-radius: 10px; 
+    font-size: 24px; 
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.3s ease; 
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #FFA500; 
+    transform: scale(1.1); 
 }
 
 #answer-container {
@@ -180,27 +223,28 @@ button:hover {
     align-items: center;
     padding:20px;
     background-image: url('../images/tableau-noir.jpg');
-    background-size: cover; /* Couvre tout l'arrière-plan */
-    background-repeat: no-repeat; /* Évite la répétition de l'image */
+    background-size: cover;   
+	background-repeat: no-repeat;
+
 }
 
 .table-wrapper {
     width: 100%;
-    max-width: 800px; /* Ajustez la largeur maximale du tableau */
-    padding: 20px; /* Espacement autour du tableau */
-    box-sizing: border-box; /* Inclut le padding dans la largeur totale */
+    max-width: 800px; 
+    padding: 20px; 
+    box-sizing: border-box; 
 }
 
 #scoresTable {
-    width: 100%; /* Utilise toute la largeur du conteneur */
+    width: 100%;
     border-collapse: collapse;
     font-size: 18px;
-    text-align: center; /* Centre le texte dans les cellules */
-    border: 5px solid #ddd; /* Bordure autour du tableau */
+    text-align: center; 
+    border: 5px solid #ddd;
 }
 
 #scoresTable th, #scoresTable td {
-    padding: 10px; /* Espacement intérieur des cellules */
+    padding: 10px;
 }
 #scoresTable thead th {
     background-color: #f2f2f2;
