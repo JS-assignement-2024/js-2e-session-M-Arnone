@@ -6,15 +6,18 @@
     <title>Meilleurs Scores</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap"/>
-
+    <script src="../js/scores.js" defer></script>
+    <script src="../js/logout.js" defer></script>
 </head>
-<body>
+<body class="scores-page">
     <?php include '../_includes/navbar.php'; ?>
 
     <h1>Tableau des Meilleurs Scores</h1>
+    <div class="table-wrapper">
     <table id="scoresTable">
         <thead>
             <tr>
+                <th>Position</th>
                 <th>Nom</th>
                 <th>Score</th>
             </tr>
@@ -22,6 +25,6 @@
         <tbody>
         </tbody>
     </table>
-    <script src="../js/scores.js"></script>
+    </div>
 </body>
 </html>

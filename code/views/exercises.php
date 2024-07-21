@@ -7,14 +7,13 @@
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap"/>
     <script src="../js/exercises.js" defer></script>
+    <script src="../js/logout.js" defer></script>
 </head>
-<body>
-    <?php include '../_includes/navbar.php'; ?>
-  
-    <h1>Calculs simples</h1>
+<body class="exercise-page">
+    <?php include '../_includes/navbar.php'; ?> 
     <p id="user-welcome"></p>
 
-     <div id="exercise-container">
+     <div id="question-container">
         <h2>Choisis les opérations et le nombre d'exercices</h2>
         <button id="btn-addition" onclick="selectOperation('addition')">+</button>
         <button id="btn-subtraction" onclick="selectOperation('subtraction')">-</button>

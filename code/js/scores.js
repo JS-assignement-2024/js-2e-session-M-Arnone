@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
             scoresTableBody.innerHTML = '';
             data.forEach((score, index) => {
                 const row = document.createElement('tr');
-                
+
                 if (index === 0) {
                     row.classList.add('gold');
                 } else if (index === 1) {
@@ -19,13 +19,21 @@ document.addEventListener('DOMContentLoaded', function() {
                 } else if (index === 2) {
                     row.classList.add('bronze');
                 }
-                
+
+                const positionCell = document.createElement('td');
+                positionCell.textContent = index + 1; // Position
+
                 const nameCell = document.createElement('td');
-                const scoreCell = document.createElement('td');
                 nameCell.textContent = score.name;
-                scoreCell.textContent = parseFloat(score.normalized_score).toFixed(2);
+
+                const scoreCell = document.createElement('td');
+                scoreCell.textContent = `${parseFloat(score.normalized_score).toFixed(2)} /20`;
+
+
+                row.appendChild(positionCell);
                 row.appendChild(nameCell);
                 row.appendChild(scoreCell);
+
                 scoresTableBody.appendChild(row);
             });
         })
