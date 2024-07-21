@@ -14,3 +14,6 @@ Bienvenue dans **Calculus**, une application web amusante et interactive qui aid
 
 Prêt à relever le défi et à devenir un super héros des maths ? 🎉🚀
 
+
+## Développement 📚
+Pour plus de détails, consultez le [README complet](code/README-dev.md). Vous y trouverez toutes les informations nécessaires pour comprendre la structure du code, les configurations, et les bonnes pratiques de développement.
